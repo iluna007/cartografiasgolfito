@@ -1,3 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <text x="16" y="25" text-anchor="middle" font-size="26" font-family="Segoe UI, system-ui, sans-serif" fill="#0089CF">◈</text>
+  <path fill="none" stroke="#0089CF" stroke-width="2.4" stroke-linejoin="miter" d="M16 2.5 29.5 16 16 29.5 2.5 16Z"/>
+  <path fill="#0089CF" d="M16 10.6 21.4 16 16 21.4 10.6 16Z"/>
 </svg>

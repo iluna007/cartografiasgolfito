@@ -9,7 +9,7 @@ export function LayerPanel({ abierto, onCerrar, manifiesto, activas, estados, on
   const [cerrados, setCerrados] = useState({})
   if (!abierto || !manifiesto) return null
 
-  const { config, grupos, capas, origen } = manifiesto
+  const { config, grupos, capas } = manifiesto
   const estaPlegado = g => (g.id in cerrados ? cerrados[g.id] : g.plegado)
 
   return (
@@ -72,12 +72,11 @@ export function LayerPanel({ abierto, onCerrar, manifiesto, activas, estados, on
         )
       })}
 
-      <footer className="capas__pie">
-        {config.creditos && <p>{config.creditos}</p>}
-        <p className="capas__origen">
-          Listado de capas: {origen === 'hoja' ? 'Google Sheets' : 'copia local (public/capas)'}
-        </p>
-      </footer>
+      {config.creditos && (
+        <footer className="capas__pie">
+          <p>{config.creditos}</p>
+        </footer>
+      )}
     </aside>
   )
 }
