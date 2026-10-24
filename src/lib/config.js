@@ -10,7 +10,7 @@ export const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN?.trim() || ''
 
 export const MAPBOX_STYLE =
   import.meta.env.VITE_MAPBOX_STYLE?.trim() ||
-  'mapbox://styles/ikerluna/cmmp9964u005401rzhlycalmk'
+  'mapbox://styles/ikerluna/cmtpzoh1k00iz01s21qb3hlsf'
 
 /**
  * Hoja de Google Sheets que hace de CMS de capas.

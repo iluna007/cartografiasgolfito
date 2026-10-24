@@ -3,7 +3,7 @@ titulo,Cartografía del Golfito,Título en la cabecera del mapa
 subtitulo,Atlas de capas,Subtítulo bajo el título
 panel_titulo,Capas,Título del panel de capas
 panel_subtitulo,Capas exportadas desde QGIS,Texto bajo el título del panel
-estilo_mapbox,mapbox://styles/ikerluna/cmmp9964u005401rzhlycalmk,Estilo base de Mapbox
+estilo_mapbox,mapbox://styles/ikerluna/cmtpzoh1k00iz01s21qb3hlsf,Estilo base de Mapbox
 ajustar_a_capas,TRUE,"TRUE: al cargar, el mapa encuadra las capas visibles. FALSE: usa centro y zoom."
 centro_lng,-83.17,Longitud inicial (solo si ajustar_a_capas es FALSE)
 centro_lat,8.65,Latitud inicial (solo si ajustar_a_capas es FALSE)
