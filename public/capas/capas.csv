@@ -1,0 +1,2 @@
+id,activa,orden,grupo,titulo,descripcion,archivo,tipo,color,borde,ancho,radio,punteada,visible_inicial,campo_nombre,campos_info,creditos,crs
+ferrocarril-del-sur,TRUE,1,infraestructura,Ferrocarril del Sur,"Trazado del Ferrocarril del Sur (línea principal y ramales) digitalizado en QGIS.",ferrocarril-del-sur.geojson,linea,#f7b500,#0d1117,3,,FALSE,TRUE,,,Digitalización propia en QGIS,

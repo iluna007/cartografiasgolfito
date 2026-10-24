@@ -1,122 +1,106 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useRef, useState } from 'react'
 import './App.css'
+import { useMap } from './hooks/useMap.js'
+import { LayerPanel } from './components/LayerPanel.jsx'
+import { MapLegend } from './components/MapLegend.jsx'
+import { FeaturePanel } from './components/FeaturePanel.jsx'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const mapRef = useRef(null)
+  // El panel de capas arranca abierto en pantallas anchas
+  const [panelAbierto, setPanelAbierto] = useState(() => window.innerWidth > 760)
+
+  const getPadding = () => {
+    const ancho = window.innerWidth > 760
+    return { top: 90, bottom: ancho ? 170 : 150, left: ancho && panelAbierto ? 360 : 50, right: ancho ? 300 : 40 }
+  }
+
+  const {
+    manifiesto, errorManifiesto, configError, activas, datos, estados, etiquetas, setEtiquetas,
+    tooltip, seleccion, setSeleccion, toggleCapa, setGrupo, irACapa, verTodo,
+  } = useMap(mapRef, getPadding)
+
+  const config = manifiesto?.config ?? {}
+  const contador = !manifiesto
+    ? (errorManifiesto || 'cargando…')
+    : `${activas.size} de ${manifiesto.capas.length} capas`
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
+    <div id="app">
+      <div id="map" ref={mapRef} />
+
+      {configError === 'mapbox' && (
+        <div className="map-config-error" role="alert">
+          <strong>Mapbox no configurado</strong>
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Define <code>VITE_MAPBOX_TOKEN</code> en <code>.env.local</code> (local) o en
+            las variables de entorno del hosting, y vuelve a desplegar.
           </p>
         </div>
+      )}
+
+      <header id="header">
+        <div className="header-logo">
+          <h1>◈ {config.titulo || 'Cartografía'}</h1>
+          {config.subtitulo && <p>{config.subtitulo}</p>}
+        </div>
+        <div id="conteo-wrap" className={!manifiesto && !errorManifiesto ? 'loading-pulse' : ''}>
+          {contador}
+        </div>
+      </header>
+
+      <div id="layer-controls">
         <button
           type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          className={`layer-btn ${panelAbierto ? 'active' : ''}`}
+          title="Mostrar u ocultar el panel de capas"
+          aria-expanded={panelAbierto}
+          onClick={() => setPanelAbierto(v => !v)}
         >
-          Count is {count}
+          ◐ Capas
         </button>
-      </section>
+        <button
+          type="button"
+          className={`layer-btn ${etiquetas ? 'active' : ''}`}
+          title="Mostrar nombres de los puntos al acercar"
+          onClick={() => setEtiquetas(v => !v)}
+        >
+          ◉ Etiquetas
+        </button>
+        <button type="button" className="layer-btn" title="Encuadrar las capas visibles" onClick={verTodo}>
+          ⤢ Ver todo
+        </button>
+      </div>
 
-      <div className="ticks"></div>
+      <LayerPanel
+        abierto={panelAbierto}
+        onCerrar={() => setPanelAbierto(false)}
+        manifiesto={manifiesto}
+        activas={activas}
+        estados={estados}
+        onToggle={toggleCapa}
+        onGrupo={setGrupo}
+        onIr={irACapa}
+      />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      {manifiesto && (
+        <MapLegend
+          capas={manifiesto.capas}
+          activas={activas}
+          datos={datos}
+          onToggle={toggleCapa}
+          desplazada={Boolean(seleccion)}
+        />
+      )}
+
+      <FeaturePanel seleccion={seleccion} onClose={() => setSeleccion(null)} />
+
+      {tooltip && (
+        <div id="tooltip" className="visible" role="tooltip" style={{ left: tooltip.x, top: tooltip.y }}>
+          <div className="tt-tipo">{tooltip.tipo}</div>
+          <div className="tt-titulo">{tooltip.titulo}</div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      )}
+    </div>
   )
 }
-
-export default App
