@@ -1,5 +1,5 @@
 clave,valor,nota
-titulo,Cartografía del Golfito,Título en la cabecera del mapa
+titulo,Cartografías Golfito Test,Título en la cabecera del mapa
 subtitulo,Atlas de capas,Subtítulo bajo el título
 panel_titulo,Capas,Título del panel de capas
 panel_subtitulo,Capas exportadas desde QGIS,Texto bajo el título del panel

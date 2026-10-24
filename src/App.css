@@ -8,7 +8,7 @@
   --text: #e6edf3;
   --text-2: #8b949e;
   --text-3: #6b737c;
-  --accent: #e5484d;
+  --accent: #0089CF;
   --radius: 10px;
   --radius-sm: 6px;
   --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -48,7 +48,7 @@
   display: flex; align-items: center; gap: 5px; transition: all .1s;
 }
 .layer-btn:hover { background: var(--bg-3); color: var(--text); }
-.layer-btn.active { background: rgba(229,72,77,0.15); color: var(--accent); border-color: rgba(229,72,77,0.4); }
+.layer-btn.active { background: rgba(0,137,207,0.15); color: var(--accent); border-color: rgba(0,137,207,0.4); }
 .layer-btn:focus-visible, .capas__ir:focus-visible, .capas__plegar:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Muestras de símbolo (panel y leyenda) */
@@ -157,7 +157,7 @@
 .panel-attrs div { display: flex; gap: 10px; padding: 4px 0; border-bottom: 0.5px solid var(--border); font-size: 12px; }
 .panel-attrs dt { color: var(--text-3); flex: 0 0 38%; word-break: break-word; }
 .panel-attrs dd { color: var(--text); word-break: break-word; }
-.panel-caso { font-size: 12px; color: var(--accent); background: rgba(229,72,77,0.1); padding: 3px 8px; border-radius: var(--radius-sm); }
+.panel-caso { font-size: 12px; color: var(--accent); background: rgba(0,137,207,0.1); padding: 3px 8px; border-radius: var(--radius-sm); }
 
 /* Tooltip */
 #tooltip {

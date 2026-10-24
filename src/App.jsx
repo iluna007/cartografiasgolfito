@@ -21,9 +21,7 @@ export default function App() {
   } = useMap(mapRef, getPadding)
 
   const config = manifiesto?.config ?? {}
-  const contador = !manifiesto
-    ? (errorManifiesto || 'cargando…')
-    : `${activas.size} de ${manifiesto.capas.length} capas`
+  const contador = manifiesto ? null : (errorManifiesto || 'cargando…')
 
   return (
     <div id="app">
@@ -41,12 +39,14 @@ export default function App() {
 
       <header id="header">
         <div className="header-logo">
-          <h1>◈ {config.titulo || 'Cartografía'}</h1>
+          <h1>◈ {config.titulo || 'Cartografías Golfito Test'}</h1>
           {config.subtitulo && <p>{config.subtitulo}</p>}
         </div>
-        <div id="conteo-wrap" className={!manifiesto && !errorManifiesto ? 'loading-pulse' : ''}>
-          {contador}
-        </div>
+        {contador && (
+          <div id="conteo-wrap" className={!manifiesto && !errorManifiesto ? 'loading-pulse' : ''}>
+            {contador}
+          </div>
+        )}
       </header>
 
       <div id="layer-controls">
